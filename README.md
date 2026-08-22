@@ -42,10 +42,10 @@ chmod +x install.sh uninstall.sh
 
 ```bash
 # 1. 改源码(唯一真源)
-#    vim @purezhi/dsh-plugin-whale3/lib/client.src.js
+#    vim dsh-plugin-whale3/lib/client.src.js
 
 # 2. 构建产物
-node @purezhi/dsh-plugin-whale3/build.js
+node dsh-plugin-whale3/build.js
 
 # 3. 安装生效(若 src 比产物新,install.sh 会提示先 build)
 ./install.sh
@@ -57,7 +57,7 @@ node @purezhi/dsh-plugin-whale3/build.js
 whale/
 ├── LICENSE / README.md / .gitignore
 ├── install.sh / uninstall.sh
-└── @purezhi/dsh-plugin-whale3/
+└── dsh-plugin-whale3/
     ├── package.json        # 声明 dsh.client (platform: web), 导出 ./client
     ├── build.js            # 构建脚本:lib/client.src.js → lib/client.js
     └── lib/
@@ -78,7 +78,7 @@ cd whale
 ## 📦 发布到 npm(可选)
 
 ```bash
-cd @purezhi/dsh-plugin-whale3
+cd dsh-plugin-whale3
 npm publish   # 需要先改 package.json 的 name 为你自己的包名
 ```
 

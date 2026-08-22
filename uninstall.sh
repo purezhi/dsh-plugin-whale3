@@ -31,7 +31,18 @@ for profile in desktop web; do
   [ -f "$patch" ] || continue
   if grep -q "@purezhi/dsh-plugin-whale3" "$patch" 2>/dev/null; then
     # 移除从 "Whale companion plugin" 注释到包含 @purezhi/dsh-plugin-whale3 的 insert 行
-    perl -0pi -e 's/\n*# Whale companion plugin:.*?- insert:\n    - id: whale\n      name: "@purezhi/dsh-plugin-whale3"\n*//s' "$patch"
+    python3 - "$patch" <<'PYEOF'
+import re, sys
+p = sys.argv[1]
+s = open(p, encoding='utf-8').read()
+pattern = re.compile(
+    r'\n*# Whale companion plugin:.*?\n- insert:\n    - id: whale\n      name: "@purezhi/dsh-plugin-whale3"\n*',
+    re.S
+)
+s2 = pattern.sub('\n', s)
+s2 = re.sub(r'\n{3,}', '\n\n', s2)
+open(p, 'w', encoding='utf-8').write(s2)
+PYEOF
     echo "✓ 已从 $profile 的 cordis.patch.yml 移除注册"
   fi
 done

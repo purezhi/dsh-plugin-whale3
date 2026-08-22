@@ -10,7 +10,7 @@ set -euo pipefail
 
 # --- 1. 定位本脚本所在目录(插件包根) --------------------------------------
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PKG_DIR="$SCRIPT_DIR/@purezhi/dsh-plugin-whale3"
+PKG_DIR="$SCRIPT_DIR/dsh-plugin-whale3"
 DSH_HOME="${DSH_HOME:-$HOME/.dsh}"
 
 echo "=============================================="
@@ -19,17 +19,17 @@ echo "=============================================="
 
 # --- 2. 检查插件包是否完整;若缺少构建产物,先运行 build.js ---------------
 if [ ! -f "$PKG_DIR/package.json" ]; then
-  echo "✗ 错误: 找不到插件包, 请确认本脚本与 @purezhi/dsh-plugin-whale3/ 在同一目录"
+  echo "✗ 错误: 找不到插件包, 请确认本脚本与 dsh-plugin-whale3/ 在同一目录"
   exit 1
 fi
 if [ ! -f "$PKG_DIR/lib/client.js" ]; then
-  echo "✗ 缺少构建产物 lib/client.js, 先运行: node @purezhi/dsh-plugin-whale3/build.js"
+  echo "✗ 缺少构建产物 lib/client.js, 先运行: node dsh-plugin-whale3/build.js"
   echo "  (源码在 lib/client.src.js, build.js 会生成 lib/client.js)"
   exit 1
 fi
 # 若源码比产物新,提醒重新构建
 if [ -f "$PKG_DIR/lib/client.src.js" ] && [ "$PKG_DIR/lib/client.src.js" -nt "$PKG_DIR/lib/client.js" ]; then
-  echo "⚠ 提示: lib/client.src.js 比 lib/client.js 新, 建议先运行: node @purezhi/dsh-plugin-whale3/build.js"
+  echo "⚠ 提示: lib/client.src.js 比 lib/client.js 新, 建议先运行: node dsh-plugin-whale3/build.js"
 fi
 
 # --- 3. 检查 DSH 主目录 ----------------------------------------------------
