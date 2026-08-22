@@ -10,7 +10,7 @@ set -euo pipefail
 
 # --- 1. 定位本脚本所在目录(插件包根) --------------------------------------
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PKG_DIR="$SCRIPT_DIR/dsh-plugin-whale"
+PKG_DIR="$SCRIPT_DIR/@purezhi/dsh-plugin-whale3"
 DSH_HOME="${DSH_HOME:-$HOME/.dsh}"
 
 echo "=============================================="
@@ -19,17 +19,17 @@ echo "=============================================="
 
 # --- 2. 检查插件包是否完整;若缺少构建产物,先运行 build.js ---------------
 if [ ! -f "$PKG_DIR/package.json" ]; then
-  echo "✗ 错误: 找不到插件包, 请确认本脚本与 dsh-plugin-whale/ 在同一目录"
+  echo "✗ 错误: 找不到插件包, 请确认本脚本与 @purezhi/dsh-plugin-whale3/ 在同一目录"
   exit 1
 fi
 if [ ! -f "$PKG_DIR/lib/client.js" ]; then
-  echo "✗ 缺少构建产物 lib/client.js, 先运行: node dsh-plugin-whale/build.js"
+  echo "✗ 缺少构建产物 lib/client.js, 先运行: node @purezhi/dsh-plugin-whale3/build.js"
   echo "  (源码在 lib/client.src.js, build.js 会生成 lib/client.js)"
   exit 1
 fi
 # 若源码比产物新,提醒重新构建
 if [ -f "$PKG_DIR/lib/client.src.js" ] && [ "$PKG_DIR/lib/client.src.js" -nt "$PKG_DIR/lib/client.js" ]; then
-  echo "⚠ 提示: lib/client.src.js 比 lib/client.js 新, 建议先运行: node dsh-plugin-whale/build.js"
+  echo "⚠ 提示: lib/client.src.js 比 lib/client.js 新, 建议先运行: node @purezhi/dsh-plugin-whale3/build.js"
 fi
 
 # --- 3. 检查 DSH 主目录 ----------------------------------------------------
@@ -41,8 +41,8 @@ echo "✓ DSH 主目录: $DSH_HOME"
 
 # --- 4. 拷贝插件到 profiles 共享 node_modules ------------------------------
 SHARED_NM="$DSH_HOME/profiles/node_modules"
-TARGET="$SHARED_NM/dsh-plugin-whale"
-mkdir -p "$SHARED_NM"
+TARGET="$SHARED_NM/@purezhi/dsh-plugin-whale3"
+mkdir -p "$SHARED_NM/@purezhi"
 rm -rf "$TARGET"
 cp -R "$PKG_DIR" "$TARGET"
 echo "✓ 插件包已安装: $TARGET"
@@ -55,7 +55,7 @@ patch_file() {
     echo "  (跳过 $profile: 无 cordis.patch.yml)"
     return
   fi
-  if grep -q "dsh-plugin-whale" "$patch" 2>/dev/null; then
+  if grep -q "@purezhi/dsh-plugin-whale3" "$patch" 2>/dev/null; then
     echo "  ($profile 已注册, 跳过)"
     return
   fi
@@ -65,7 +65,7 @@ patch_file() {
 # browser half is discovered via the package.json dshClient declaration.
 - insert:
     - id: whale
-      name: dsh-plugin-whale
+      name: "@purezhi/dsh-plugin-whale3"
 EOF
   echo "  ✓ 已注册到 $profile"
 }
@@ -73,9 +73,9 @@ EOF
 # web profile 需要插件链接(desktop 走共享目录即可)
 link_web() {
   local web_nm="$DSH_HOME/profiles/web/node_modules"
-  if [ -d "$DSH_HOME/profiles/web" ] && [ ! -e "$web_nm/dsh-plugin-whale" ]; then
-    mkdir -p "$web_nm"
-    ln -sfn "$TARGET" "$web_nm/dsh-plugin-whale"
+  if [ -d "$DSH_HOME/profiles/web" ] && [ ! -e "$web_nm/@purezhi/dsh-plugin-whale3" ]; then
+    mkdir -p "$web_nm/@purezhi"
+    ln -sfn "$TARGET" "$web_nm/@purezhi/dsh-plugin-whale3"
     echo "  ✓ 已链接到 web profile"
   fi
 }

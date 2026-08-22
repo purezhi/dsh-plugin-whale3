@@ -1,5 +1,5 @@
 window.__ModuleLoader__.load({
-	id: "dsh-plugin-whale",
+	id: "@purezhi/dsh-plugin-whale3",
 	factory: (require) => {
 		var module = { exports: {} };
 		var exports = module.exports;

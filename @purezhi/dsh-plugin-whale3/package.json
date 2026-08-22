@@ -1,5 +1,5 @@
 {
-  "name": "dsh-plugin-whale",
+  "name": "@purezhi/dsh-plugin-whale3",
   "version": "1.0.0",
   "description": "An animated whale companion for the DSH UI. Default humpback, right-click cycles blue whale / orca; drag to reposition. Lives in the user profile so it survives app upgrades.",
   "type": "module",
