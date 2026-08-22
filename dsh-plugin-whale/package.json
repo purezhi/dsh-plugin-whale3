@@ -24,7 +24,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/purezhi/dsh-plugin-whale.git"
+    "url": "git+https://github.com/purezhi/dsh-plugin-whale3.git"
   },
   "author": "purezhi",
   "keywords": [
@@ -33,5 +33,23 @@
     "plugin",
     "whale",
     "companion"
-  ]
+  ],
+  "homepage": "https://github.com/purezhi/dsh-plugin-whale3#readme",
+  "bugs": {
+    "url": "https://github.com/purezhi/dsh-plugin-whale3/issues"
+  },
+  "engines": {
+    "node": "^22.19.0 || >=24.0.0"
+  },
+  "scripts": {
+    "build": "node build.js",
+    "prepare": "node build.js"
+  },
+  "files": [
+    "lib",
+    "build.js",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": true
 }

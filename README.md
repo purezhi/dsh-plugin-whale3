@@ -1,36 +1,27 @@
-# DSH UI 鲸鱼动画
+# 🐳 DSH UI 鲸鱼插件
 
-给 DSH 的 Web UI 加一条会动的鲸鱼:默认显示**座头鲸**,右键循环切换 🐳 座头鲸 → 🐋 蓝鲸 → 🐋 虎鲸;可拖拽定位,顶部来回游动,眨眼/摆尾/喷水动画。
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![npm version](https://img.shields.io/npm/v/dsh-plugin-whale.svg)](https://www.npmjs.com/package/dsh-plugin-whale)
+[![Node](https://img.shields.io/badge/node-%5E22.19%20%7C%20%3E%3D24-blue)](package.json)
 
-注册在 `~/.dsh`(用户配置),**应用升级后依然存在**。
+给 DeepSeek Harness (DSH) 的 Web UI 加一条会动的鲸鱼桌宠:
 
-## 目录结构(参照 dsh-plugin-confirmo)
+- 🐳 **默认显示座头鲸**,右键循环切换 🐳 座头鲸 → 🐋 蓝鲸 → 🐋 虎鲸(双击回到第一个)
+- **可拖拽定位**,顶部水平来回游动,眨眼 / 双叶摆尾 / 喷水动画
+- 注册在 `~/.dsh`(用户配置),**应用升级后依然存在**
 
-```
-whale/
-├── dsh-plugin-whale/          # 插件包源码(工作区,不生效)
-│   ├── package.json           # 声明 dsh.client(platform: web)
-│   ├── build.js               # 构建脚本:lib/client.src.js → lib/client.js
-│   └── lib/
-│       ├── client.src.js      # 浏览器端源码(唯一真源,改这里)
-│       ├── client.js          # 构建产物(install 时拷贝到 ~/.dsh)
-│       └── index.js           # node 端空插件
-├── install.sh                 # 一键安装(拷贝插件到 ~/.dsh 并注册)
-├── uninstall.sh               # 一键卸载
-├── README.md                  # 本文档
-└── archive/                   # 旧方案(dist 注入)备份,已弃用
-```
+## ✨ 功能
 
-**工作区不生效**:工作区的 `dsh-plugin-whale/` 只是代码仓库;只有运行 `install.sh` 才会把插件安装到 `~/.dsh/profiles/node_modules/` 并注册生效。
+- **三种品种,独立身体轮廓**(头型/背线/腹线均不同,不是换皮):
+  - 🐳 **座头鲸**:圆鼓高背(宽高比 1.77)、emoji 明亮蓝 `#5b8cff`、白色大肚皮、大眼睛萌态、4 颗头部疣突、驼峰背鳍、超长胸鳍(身体 1/3)、心形宽水柱
+  - 🐋 **蓝鲸**:细长子弹头(宽高比 2.75)、DeepSeek 品牌蓝 `#4D6BFE`、小背鳍靠后、细长胸鳍、高细水柱
+  - 🐋 **虎鲸**:梭子形(宽高比 2.29,吻部尖细)、黑白配色、高大镰刀背鳍、眼斑 + 灰色马鞍斑、白腹延伸、短宽水柱
+- 顶部水平来回游动,游到边缘短暂停留后转身(**始终头朝游动方向**)
+- **按住拖拽**移动到任意位置,松手后在新水平高度来回游
+- 身体浮动、双叶摆尾、鱼鳍摆动、眨眼、喷水动画
+- 尊重系统 `prefers-reduced-motion`(减弱动画时全部停用)
 
-## 开发工作流(保持代码最新)
-
-1. **改源码**:编辑 `dsh-plugin-whale/lib/client.src.js`(这是唯一真源)
-2. **构建产物**:`node dsh-plugin-whale/build.js`(生成 `lib/client.js`)
-3. **安装生效**:`./install.sh`(拷贝到 `~/.dsh` 并注册,若 src 比产物新会提示先 build)
-4. **重启 DSH Desktop**(插件集变更需重启生效)
-
-## 安装(给别人)
+## 📦 安装
 
 ```bash
 cd whale
@@ -43,28 +34,61 @@ chmod +x install.sh uninstall.sh
 2. 注册到 `~/.dsh/profiles/desktop/cordis.patch.yml` 与 `web/cordis.patch.yml`
 3. 给 web profile 建符号链接
 
-然后**重启 DSH Desktop**(或重新运行 `dsh web`)即可看到鲸鱼。
+**然后重启 DSH Desktop**(或重新运行 `dsh web`)。插件集变更需要重启,client-modules 的包元数据缓存设计。
 
-## 鲸鱼功能
+## 🛠 开发工作流(保持代码最新)
 
-- **默认显示座头鲸**,右键循环切换(双击回到第一个):🐳 座头鲸 → 🐋 蓝鲸 → 🐋 虎鲸
-- 三种品种各有**独立身体轮廓**(头型/背线/腹线均不同):
-  - 🐳 座头鲸:圆鼓高背(宽高比 1.77)、emoji 明亮蓝 #5b8cff、白色大肚皮、大眼睛萌态、4 颗头部疣突、驼峰背鳍、超长胸鳍(身体 1/3)、心形宽水柱
-  - 🐋 蓝鲸:细长子弹头(宽高比 2.75,背腹近平行、头钝圆宽)、DeepSeek 品牌蓝 #4D6BFE、小背鳍靠后、细长胸鳍、高细水柱
-  - 🐋 虎鲸:梭子形(宽高比 2.29,吻部尖细、中间粗两端细)、黑白、高大镰刀背鳍、眼斑+灰色马鞍斑、白腹延伸、短宽水柱
-- 顶部水平来回游动,游到边缘短暂停留后转身(始终头朝游动方向)
-- **按住拖拽**移动到任意位置,松手后在新水平高度来回游
-- 身体浮动、双叶摆尾、鱼鳍摆动、眨眼、喷水动画
-- 尊重系统 `prefers-reduced-motion`(减弱动画时全部停用)
-
-## 卸载
+工作区**不生效**,是源码仓库;改代码 → 构建 → 安装三步:
 
 ```bash
+# 1. 改源码(唯一真源)
+#    vim dsh-plugin-whale/lib/client.src.js
+
+# 2. 构建产物
+node dsh-plugin-whale/build.js
+
+# 3. 安装生效(若 src 比产物新,install.sh 会提示先 build)
+./install.sh
+```
+
+## 📁 文件结构
+
+```
+whale/
+├── LICENSE / README.md / .gitignore
+├── install.sh / uninstall.sh
+└── dsh-plugin-whale/
+    ├── package.json        # 声明 dsh.client (platform: web), 导出 ./client
+    ├── build.js            # 构建脚本:lib/client.src.js → lib/client.js
+    └── lib/
+        ├── index.js        # node 端空插件(让插件出现在 Loader)
+        ├── client.src.js   # 浏览器端源码(唯一真源)
+        └── client.js       # 构建产物(ModuleLoader bundle)
+```
+
+## 🗑 卸载
+
+```bash
+cd whale
 ./uninstall.sh
 ```
 
 或手动删除 `~/.dsh/profiles/node_modules/dsh-plugin-whale/` + 移除 cordis.patch.yml 里的 whale 注册段。
 
-## 发布到 npm(可选)
+## 📦 发布到 npm(可选)
 
-把 `dsh-plugin-whale/` 作为独立包发布(`npm publish` 前改 package.json 的 name/repository),接收方安装到 profile 后同样在 cordis.patch.yml 注册即可。
+```bash
+cd dsh-plugin-whale
+npm publish   # 需要先改 package.json 的 name 为你自己的包名
+```
+
+`files` 字段已限定发布内容(`lib/`、`build.js`、`README.md`、`LICENSE`),`prepare` 会在发布前自动运行构建。接收方安装到 profile 后同样在 cordis.patch.yml 注册即可。
+
+## 📜 致谢与声明
+
+- 身体轮廓与配色参考真实鲸鱼形态;DeepSeek 品牌蓝 `#4D6BFE` 取自 DeepSeek logo 品牌色
+- 本项目为独立开源实现,与 DeepSeek / DeepSeek Harness 无隶属关系
+
+## ⚖️ License
+
+[MIT](LICENSE)
