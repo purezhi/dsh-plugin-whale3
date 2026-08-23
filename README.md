@@ -92,3 +92,11 @@ npm publish   # 需要先改 package.json 的 name 为你自己的包名
 ## ⚖️ License
 
 [MIT](LICENSE)
+
+## 📦 已收录
+
+本插件已提交到 **DSH 1024Store**(官方主目录):
+
+- PR: https://github.com/imsai-sh/awesome-deepseek-harness-plugins/pull/179(已合并)
+- 收录后自动同步到 deepseek1024.com 与市场内置的 1024Store 来源
+- 仓库带 `dsh-plugin` topic,同时会被 dshfind.com 每日同步收录(仅浏览)
