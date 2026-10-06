@@ -1,5 +1,16 @@
-# Whale companion plugin: a client-only UI plugin (empty node apply) whose
-# browser half is discovered via the package.json dshClient declaration.
+# Whale companion plugin: the browser half is discovered through the
+# package.json dsh.client declaration; the node half exposes the row's Config
+# to it over GET /whale/config.
+#
+# This is the bundle's own insert row. Configure it with an id-targeted
+# override in the PROFILE patch layer
+# (~/.dsh/profiles/<profile>/cordis.patch.yml) — do not add another insert:
+#
+#   - id: whale
+#     config:
+#       # 右键点击是否切换形象（座头鲸 → 蓝鲸 → 虎鲸）。默认 true。
+#       # false 时右键不再切换，双击仍可重置为座头鲸，拖动不受影响。
+#       rightClickSwitch: true
 - insert:
     - id: whale
       name: "@purezhi/dsh-plugin-whale3"
