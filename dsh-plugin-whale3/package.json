@@ -45,9 +45,11 @@
   "engines": {
     "node": "^22.19.0 || >=24.0.0"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
-    "build": "node build.js",
-    "prepare": "node build.js"
+    "build": "node build.js"
   },
   "files": [
     "lib/index.js",
@@ -56,6 +58,7 @@
     "locale/*.json",
     "cordis.patch.yml",
     "README.md",
+    "LICENSE",
     "icon.svg"
   ],
   "sideEffects": true,
