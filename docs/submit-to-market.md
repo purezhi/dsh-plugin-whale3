@@ -94,9 +94,13 @@ DSH Community Market 本身**不维护插件目录**，它是一个「壳」：�
 ### 本插件的提交记录
 
 - PR: https://github.com/imsai-sh/awesome-deepseek-harness-plugins/pull/179（已合并，2026-08-23）
+- **npm**: `@purezhi/dsh-plugin-whale3@1.0.0`（2026-10-06 发布；11 个文件，含 README/LICENSE/types）
 - 投稿文件: `docs/submission/purezhi--dsh-plugin-whale3.json`
 - 上游条目: `catalog/plugins/purezhi--dsh-plugin-whale3.json`
-- 待办: 上游条目里的 `name` 仍是旧的无作用域名 `dsh-plugin-whale3`（实际包名为 `@purezhi/dsh-plugin-whale3`）；如需刷新，可参照移除/更新条目的 PR 再提一次（该路径走维护者审核，非自动合并）
+- 条目 `name` 修正: https://github.com/imsai-sh/awesome-deepseek-harness-plugins/pull/580（待维护者审核）
+  - 原条目写的是无作用域名 `dsh-plugin-whale3`，与实际发布的 `@purezhi/dsh-plugin-whale3` 不符，
+    市场按条目名去 npm 安装会落空 → 该 PR 只改这一个字段
+  - 属于「更新既有条目」路径，需人工审核，非自动合并
 - 合并后 `Catalog sync` workflow 会推送目录到 deepseek1024.com（同步为异步排队，稍候可见）
 
 ### （可选）让插件进入市场「可安装」标签页
